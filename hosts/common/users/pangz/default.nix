@@ -20,7 +20,7 @@ in {
     packages = [pkgs.home-manager];
   };
 
-  home-manager.users.pangz = import ./../../../../home/pangz/${config.networking.hostName}.nix;
+  home-manager.users.pangz = import ./../../../../home-manager/pangz/${config.networking.hostName}.nix;
 
   services.geoclue2.enable = true;
   security.pam.services = {swaylock = {};};

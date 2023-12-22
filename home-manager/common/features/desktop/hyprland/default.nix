@@ -131,7 +131,7 @@
         xdg-mime = "${pkgs.xdg-utils}/bin/xdg-mime";
         defaultApp = type: "${gtk-launch} $(${xdg-mime} query default ${type})";
 
-        terminal = config.home.sessionVariables.TERMINAL;
+        terminal = "${pkgs.alacritty}/bin/alacritty";
         browser = defaultApp "x-scheme-handler/https";
         editor = defaultApp "text/plain";
       in

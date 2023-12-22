@@ -20,7 +20,6 @@
   };
 
   home.packages = with pkgs; [
-    inputs.hyprwm-contrib.grimblast
     hyprslurp
     hyprpicker
   ];
@@ -124,7 +123,6 @@
         dunstctl = "${config.services.dunst.package}/bin/dunstctl";
         wofi = "${config.programs.wofi.package}/bin/wofi";
 
-        grimblast = "${pkgs.inputs.hyprwm-contrib.grimblast}/bin/grimblast";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
 
         gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
@@ -150,12 +148,6 @@
           ",XF86AudioMute,exec,${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
           "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
           ",XF86AudioMicMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
-          # Screenshotting
-          ",Print,exec,${grimblast} --notify --freeze copy output"
-          "SHIFT,Print,exec,${grimblast} --notify --freeze copy active"
-          "CONTROL,Print,exec,${grimblast} --notify --freeze copy screen"
-          "SUPER,Print,exec,${grimblast} --notify --freeze copy area"
-          "ALT,Print,exec,${grimblast} --notify --freeze copy area"
         ]
         ++ (lib.optionals config.services.playerctld.enable [
           # Media control

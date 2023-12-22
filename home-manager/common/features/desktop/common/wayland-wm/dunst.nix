@@ -1,7 +1,7 @@
 {config, ...}: let
   inherit (config.colorscheme) kind;
 in {
-  services.mako = {
+  services.dunst = {
     enable = true;
     settings = {
       global = {

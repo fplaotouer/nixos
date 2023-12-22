@@ -14,7 +14,6 @@
       trusted-users = ["root" "@wheel"];
       auto-optimise-store = lib.mkDefault true;
       experimental-features = ["nix-command" "flakes"];
-      flake-registry = "";
     };
     gc = {
       automatic = true;

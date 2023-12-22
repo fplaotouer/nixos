@@ -9,6 +9,8 @@
   imports = [
     ./../common/global
     ./../common/features/cli
+    ./../common/features/desktop/hyprland
+    ./../common/features/music
   ];
 
   home = {
@@ -17,7 +19,7 @@
     stateVersion = "22.11";
     sessionPath = ["$HOME/.local/bin"];
     sessionVariables = {
-      FLAKE = "$HOME/Documents/NixConfig";
+      FLAKE = "$HOME/nixos";
     };
   };
 

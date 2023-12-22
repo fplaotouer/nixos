@@ -1,6 +1,7 @@
 {
   imports = [
     ./deluge.nix
+    ./font.nix
     ./librewolf.nix
     ./gtk.nix
   ];

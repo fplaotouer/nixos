@@ -39,9 +39,9 @@
 
     settings = {
       general = {
-        gaps_in = 15;
-        gaps_out = 20;
-        border_size = 2.7;
+        gaps_in = 5;
+        gaps_out = 10;
+        border_size = 1;
         cursor_inactive_timeout = 4;
         "col.active_border" = "0xff${config.colorscheme.colors.base0C}";
         "col.inactive_border" = "0xff${config.colorscheme.colors.base02}";
@@ -50,11 +50,11 @@
         "col.border_active" = "0xff${config.colorscheme.colors.base0B}";
         "col.border_inactive" = "0xff${config.colorscheme.colors.base04}";
         groupbar = {
-          font_size = 11;
+          font_size = 8;
         };
       };
       input = {
-        kb_layout = "br,us";
+        kb_layout = "us";
         touchpad.disable_while_typing = false;
       };
       dwindle.split_width_multiplier = 1.35;
@@ -121,17 +121,11 @@
         swaylock = "${config.programs.swaylock.package}/bin/swaylock";
         playerctl = "${config.services.playerctld.package}/bin/playerctl";
         playerctld = "${config.services.playerctld.package}/bin/playerctld";
-        makoctl = "${config.services.mako.package}/bin/makoctl";
+        dunstctl = "${config.services.dunst.package}/bin/dunstctl";
         wofi = "${config.programs.wofi.package}/bin/wofi";
-        pass-wofi = "${pkgs.pass-wofi.override {
-          pass = config.programs.password-store.package;
-        }}/bin/pass-wofi";
 
         grimblast = "${pkgs.inputs.hyprwm-contrib.grimblast}/bin/grimblast";
         pactl = "${pkgs.pulseaudio}/bin/pactl";
-        tly = "${pkgs.tly}/bin/tly";
-        gtk-play = "${pkgs.libcanberra-gtk3}/bin/canberra-gtk-play";
-        notify-send = "${pkgs.libnotify}/bin/notify-send";
 
         gtk-launch = "${pkgs.gtk3}/bin/gtk-launch";
         xdg-mime = "${pkgs.xdg-utils}/bin/xdg-mime";
@@ -162,11 +156,6 @@
           "CONTROL,Print,exec,${grimblast} --notify --freeze copy screen"
           "SUPER,Print,exec,${grimblast} --notify --freeze copy area"
           "ALT,Print,exec,${grimblast} --notify --freeze copy area"
-          # Tally counter
-          "SUPER,z,exec,${notify-send} -t 1000 $(${tly} time) && ${tly} add && ${gtk-play} -i dialog-information" # Add new entry
-          "SUPERCONTROL,z,exec,${notify-send} -t 1000 $(${tly} time) && ${tly} undo && ${gtk-play} -i dialog-warning" # Undo last entry
-          "SUPERCONTROLSHIFT,z,exec,${tly} reset && ${gtk-play} -i complete" # Reset
-          "SUPERSHIFT,z,exec,${notify-send} -t 1000 $(${tly} time)" # Show current time
         ]
         ++ (lib.optionals config.services.playerctld.enable [
           # Media control
@@ -187,35 +176,17 @@
         ])
         ++
         # Notification manager
-        (lib.optionals config.services.mako.enable [
-          "SUPER,w,exec,${makoctl} dismiss"
+        (lib.optionals config.services.dunst.enable [
+          "SUPER,w,exec,${dunstctl} close"
         ])
         ++
         # Launcher
-        (lib.optionals config.programs.wofi.enable [
+        (
+          lib.optionals config.programs.wofi.enable [
             "SUPER,x,exec,${wofi} -S drun -x 10 -y 10 -W 25% -H 60%"
             "SUPER,d,exec,${wofi} -S run"
           ]
-          ++ (lib.optionals config.programs.password-store.enable [
-            ",Scroll_Lock,exec,${pass-wofi}" # fn+k
-            ",XF86Calculator,exec,${pass-wofi}" # fn+f12
-            "SUPER,semicolon,exec,pass-wofi"
-          ]));
-
-      monitor = map (
-        m: let
-          resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-          position = "${toString m.x}x${toString m.y}";
-        in "${m.name},${
-          if m.enabled
-          then "${resolution},${position},1"
-          else "disable"
-        }"
-      ) (config.monitors);
-
-      workspace = map (
-        m: "${m.name},${m.workspace}"
-      ) (lib.filter (m: m.enabled && m.workspace != null) config.monitors);
+        );
     };
     # This is order sensitive, so it has to come here.
     extraConfig = ''

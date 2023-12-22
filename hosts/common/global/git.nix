@@ -1,5 +1,5 @@
 {
-  virtualisation.docker = {
+  programs.git = {
     enable = true;
   };
 }

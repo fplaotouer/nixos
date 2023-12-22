@@ -6,7 +6,7 @@
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
   users.mutableUsers = false;
-  users.users.misterio = {
+  users.users.pangz = {
     isNormalUser = true;
     shell = pkgs.fish;
     extraGroups =
@@ -20,12 +20,7 @@ in {
     packages = [pkgs.home-manager];
   };
 
-  sops.secrets.misterio-password = {
-    sopsFile = ../../secrets.yaml;
-    neededForUsers = true;
-  };
-
-  home-manager.users.pangz = import ../../../../home/pangz/${config.networking.hostName}.nix;
+  home-manager.users.pangz = import ./../../../../home/pangz/${config.networking.hostName}.nix;
 
   services.geoclue2.enable = true;
   security.pam.services = {swaylock = {};};

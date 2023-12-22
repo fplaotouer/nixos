@@ -9,9 +9,14 @@
     [
       inputs.home-manager.nixosModules.home-manager
       ./fish.nix
+      ./font.nix
       ./gamemode.nix
+      ./git.nix
       ./locale.nix
       ./nix.nix
+      ./nvim.nix
+      ./pipewire.nix
+      ./systemd-boot.nix
       ./systemd-initrd.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);

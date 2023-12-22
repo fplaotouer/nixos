@@ -1,8 +1,8 @@
 {pkgs, ...}: {
   imports = [
     ./alacritty.nix
+    ./dunst.nix
     ./gammastep.nix
-    ./mako.nix
     ./swaylock.nix
     ./waybar.nix
     ./wofi.nix
@@ -11,9 +11,7 @@
   xdg.mimeApps.enable = true;
   home.packages = with pkgs; [
     gtk3 # For gtk-launch
-    primary-xwayland
     wl-clipboard
-    xdg-utils-spawn-terminal # Patched to open terminal
   ];
 
   home.sessionVariables = {

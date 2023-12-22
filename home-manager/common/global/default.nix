@@ -7,7 +7,6 @@
   ...
 }: let
   inherit (inputs.nix-colors) colorSchemes;
-  inherit (inputs.nix-colors.lib-contrib {inherit pkgs;}) nixWallpaperFromScheme;
 in {
   imports =
     [
@@ -35,6 +34,7 @@ in {
   programs = {
     home-manager.enable = true;
     git.enable = true;
+    neovim.enable = true;
     fish.enable = true;
     bash.enable = true;
     zsh.enable = true;
@@ -48,17 +48,5 @@ in {
   };
 
   colorscheme = lib.mkDefault colorSchemes.gruvbox-dark-medium;
-  wallpaper = let
-    largest = f: xs: builtins.head (builtins.sort (a: b: a > b) (map f xs));
-    largestWidth = largest (x: x.width) config.monitors;
-    largestHeight = largest (x: x.height) config.monitors;
-  in
-    lib.mkDefault (nixWallpaperFromScheme
-      {
-        scheme = config.colorscheme;
-        width = largestWidth;
-        height = largestHeight;
-        logoScale = 4;
-      });
   home.file.".colorscheme".text = config.colorscheme.slug;
 }

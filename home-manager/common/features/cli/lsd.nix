@@ -1,0 +1,5 @@
+{
+  programs.lsd = {
+    enableAliases = true;
+  };
+}

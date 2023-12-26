@@ -22,6 +22,7 @@
   home.packages = with pkgs; [
     hyprslurp
     hyprpicker
+    dolphin
   ];
 
   wayland.windowManager.hyprland = {
@@ -122,6 +123,7 @@
         playerctld = "${config.services.playerctld.package}/bin/playerctld";
         dunstctl = "${config.services.dunst.package}/bin/dunstctl";
         wofi = "${config.programs.wofi.package}/bin/wofi";
+        dolphin = "${pkgs.dolphin}/bin/dolphin";
 
         pactl = "${pkgs.pulseaudio}/bin/pactl";
 
@@ -136,7 +138,7 @@
         [
           # Program bindings
           "SUPER,Return,exec,${terminal}"
-          "SUPER,e,exec,${editor}"
+          "SUPER,e,exec,${dolphin}"
           "SUPER,v,exec,${editor}"
           "SUPER,b,exec,${browser}"
           # Brightness control (only works if the system has lightd)

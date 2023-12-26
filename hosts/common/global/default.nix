@@ -13,6 +13,7 @@
       ./gamemode.nix
       ./git.nix
       ./locale.nix
+      ./network.nix
       ./nix.nix
       ./nvim.nix
       ./pipewire.nix

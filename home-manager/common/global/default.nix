@@ -11,6 +11,7 @@ in {
   imports =
     [
       inputs.nix-colors.homeManagerModule
+      ./virt-manager.nix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 

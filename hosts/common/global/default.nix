@@ -8,6 +8,7 @@
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
+      ./dconf.nix
       ./fish.nix
       ./font.nix
       ./gamemode.nix

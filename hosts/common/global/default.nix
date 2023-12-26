@@ -9,6 +9,7 @@
     [
       inputs.home-manager.nixosModules.home-manager
       ./dconf.nix
+      ./devmon.nix
       ./fish.nix
       ./font.nix
       ./gamemode.nix
